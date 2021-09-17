@@ -11,7 +11,8 @@ import { ImageUploadService } from '../image-upload.service';
 export class AuthoraddComponent implements OnInit {
   modalRef?: BsModalRef;
   url: any = undefined;
-  imgUrl: any;
+  file: any;
+  imgUrl: string = '';
   filename: string = "Preview"
   // form control 
   addAuthorForm: FormGroup = this.fb.group({
@@ -22,7 +23,15 @@ export class AuthoraddComponent implements OnInit {
   })
 
   onSubmit() {
-    console.log(this.addAuthorForm.value)
+    console.log(this.addAuthorForm.value);
+    this.api.upload(this.file).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.imgUrl = res.data.link;
+        console.log(this.imgUrl)
+      });
+
+
   }
 
   constructor(private modalService: BsModalService,
@@ -36,19 +45,17 @@ export class AuthoraddComponent implements OnInit {
   }
 
   onFileChanged(event: any) {
-    var file: File = event!.target!.files[0]
+    this.file = event!.target!.files[0]
 
-    const mimeType = file.type;
-    this.filename = file.name;
+    const mimeType = this.file.type;
+    this.filename = this.file.name;
     if (mimeType.match(/image\/*/) == null) {
       console.log("Only images")
       return;
     }
 
-    this.api.upload(file);
-
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(this.file);
     reader.onload = (_event) => {
       this.url = reader.result;
     }
