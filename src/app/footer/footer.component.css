@@ -1,0 +1,16 @@
+.container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+  }
+
+  .footerfix{height:4rem;}
+footer{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  background-color: #222;
+}

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <img src="../../assets/favicon.ico" alt="" width="40" height="40" tooltip="Home" placement="right">
+        </a>
+        <form class="d-flex">
+            <div class="btn-group" dropdown placement="bottom right">
+                <button id="button-alignment" dropdownToggle type="button" class="btn btn-success dropdown-toggle"
+                    aria-controls="dropdown-alignment">
+                    <i class="fas fa-sign-in-alt"></i> <span class="caret"></span>
+                </button>
+                <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                    aria-labelledby="button-alignment">
+                    <li role="menuitem"><a class="dropdown-item" href="#">Login</a></li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Sign-Up</a></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</nav>

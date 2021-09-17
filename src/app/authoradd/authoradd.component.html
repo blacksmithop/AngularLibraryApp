@@ -1,0 +1,93 @@
+<h1 class="text-center text-light display-4">Add Author</h1>
+<div class="container">
+    <form [formGroup]="addAuthorForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-user"></span>
+                </div>
+                <input type="text" formControlName="name" placeholder="Name of author" class="form-control"
+                    tooltip="Complete name of the author" placement="right">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-check-circle" *ngIf="addAuthorForm.get('name')!.valid"></span>
+                </div>
+            </div>
+            <small class=" mt-2 fs-6 text-center text-light" *ngIf="addAuthorForm.get('name')!.hasError('required')">
+                Name is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-flag"></span>
+                </div>
+                <input type="text" formControlName="country" placeholder="Country of origin" class="form-control"
+                    id="inputPassword3" tooltip="Nationality of the author" placement="right">
+                <span class="input-group-text fas fa-check-circle" *ngIf="addAuthorForm.get('country')!.valid"></span>
+            </div>
+            <small class="mt-2 fs-6 text-center text-light" *ngIf="addAuthorForm.get('country')!.hasError('required')">
+                Country is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-language"></span>
+                </div>
+                <input type="text" formControlName="language" placeholder="Language of work" class="form-control"
+                    id="inputPassword3" tooltip="Languages used by the author" placement="right">
+                <span class="input-group-text fas fa-check-circle" *ngIf="addAuthorForm.get('language')!.valid"></span>
+            </div>
+            <small class="mt-2 fs-6 text-center text-light" *ngIf="addAuthorForm.get('language')!.hasError('required')">
+                Language is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-book"></span>
+                </div>
+                <input type="text" formControlName="work" placeholder="Notable work" class="form-control"
+                    id="inputPassword3" tooltip="Famous work(s) by the author" placement="right">
+                <span class="input-group-text fas fa-check-circle" *ngIf="addAuthorForm.get('work')!.valid"></span>
+            </div>
+            <small class="mt-2 fs-6 text-center text-light" *ngIf="addAuthorForm.get('work')!.hasError('required')">
+                Work is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <ng-template #template>
+                <div class="modal-header bg-dark text-light">
+                    <h4 class=" modal-title text-center">{{filename}}</h4>
+                    <button type="button" class="btn-close close pull-right" aria-label="Close"
+                        (click)="modalRef?.hide()">
+                        <span aria-hidden="true" class="visually-hidden">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="h5" *ngIf="url === undefined">Upload an image to see the preview</p>
+                    <img src={{url}} class="img-fluid rounded float-start border border-dark" alt="">
+                </div>
+            </ng-template>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-upload"></span>
+                    <i class="input-group-text fas fa-eye" (click)="openModal(template)" *ngIf="url!==undefined"></i>
+                </div>
+                <input class="form-control" id="formFileSm" type="file" tooltip="Image of the author" placement="right"
+                    (change)="onFileChanged($event)" accept="image/*" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-check-circle" *ngIf="url!==undefined"></span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" [disabled]="(!addAuthorForm.valid || url===undefined)" class="btn btn-success"
+                tooltip="Add a new author" placement="bottom"><i class="fas fa-user-plus"></i>
+            </button>
+        </div>
+
+    </form>
+
+</div>
