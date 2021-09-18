@@ -1,0 +1,93 @@
+<h1 class="text-center text-light display-4">Add Book</h1>
+<div class="container">
+    <form [formGroup]="addBookForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-user"></span>
+                </div>
+                <input type="text" formControlName="name" placeholder="Name of book" class="form-control"
+                    tooltip="Name of the book" placement="right">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-check-circle" *ngIf="addBookForm.get('name')!.valid"></span>
+                </div>
+            </div>
+            <small class=" mt-2 fs-6 text-center text-light" *ngIf="addBookForm.get('name')!.hasError('required')">
+                Name is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-flag"></span>
+                </div>
+                <input type="text" formControlName="author" placeholder="Name of author" class="form-control"
+                    id="inputPassword3" tooltip="Name of the author" placement="right">
+                <span class="input-group-text fas fa-check-circle" *ngIf="addBookForm.get('author')!.valid"></span>
+            </div>
+            <small class="mt-2 fs-6 text-center text-light" *ngIf="addBookForm.get('author')!.hasError('required')">
+                Author name is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-language"></span>
+                </div>
+                <input type="text" formControlName="genre" placeholder="Genre of work" class="form-control"
+                    id="inputPassword3" tooltip="Genre of the author" placement="right">
+                <span class="input-group-text fas fa-check-circle" *ngIf="addBookForm.get('genre')!.valid"></span>
+            </div>
+            <small class="mt-2 fs-6 text-center text-light" *ngIf="addBookForm.get('genre')!.hasError('required')">
+                Genre is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-book"></span>
+                </div>
+                <input type="text" formControlName="about" placeholder="About the book" class="form-control"
+                    id="inputPassword3" tooltip="A brief description about the book" placement="right">
+                <span class="input-group-text fas fa-check-circle" *ngIf="addBookForm.get('about')!.valid"></span>
+            </div>
+            <small class="mt-2 fs-6 text-center text-light" *ngIf="addBookForm.get('about')!.hasError('required')">
+                About section is required <i class="fas fa-exclamation-circle"></i>
+            </small>
+        </div>
+        <div class="row mb-3">
+            <ng-template #template>
+                <div class="modal-header bg-dark text-light">
+                    <h4 class=" modal-title text-center">{{filename}}</h4>
+                    <button type="button" class="btn-close close pull-right" aria-label="Close"
+                        (click)="modalRef?.hide()">
+                        <span aria-hidden="true" class="visually-hidden">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="h5" *ngIf="url === undefined">Upload an image to see the preview</p>
+                    <img src={{url}} class="img-fluid rounded float-start border border-dark" alt="">
+                </div>
+            </ng-template>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-upload"></span>
+                    <i class="input-group-text fas fa-eye" (click)="openModal(template)" *ngIf="url!==undefined"></i>
+                </div>
+                <input class="form-control" id="formFileSm" type="file" tooltip="Image of the author" placement="right"
+                    (change)="onFileChanged($event)" accept="image/*" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text fas fa-check-circle" *ngIf="url!==undefined"></span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" [disabled]="(!addBookForm.valid || url===undefined)" class="btn btn-success"
+                tooltip="Add a new book" placement="bottom"><i class="fas fa-user-plus"></i>
+            </button>
+        </div>
+
+    </form>
+
+</div>

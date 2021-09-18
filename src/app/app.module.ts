@@ -19,13 +19,15 @@ import { FooterComponent } from './footer/footer.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { ImageUploadService } from './image-upload.service';
+import { BookaddComponent } from './bookadd/bookadd.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LandingComponent,
     AuthoraddComponent,
-    FooterComponent
+    FooterComponent,
+    BookaddComponent
   ],
   imports: [
     BrowserModule,

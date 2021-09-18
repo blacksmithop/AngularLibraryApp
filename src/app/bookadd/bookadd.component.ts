@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageUploadService } from '../image-upload.service';
 
 @Component({
-  selector: 'app-authoradd',
-  templateUrl: './authoradd.component.html',
-  styleUrls: ['./authoradd.component.css']
+  selector: 'app-bookadd',
+  templateUrl: './bookadd.component.html',
+  styleUrls: ['./bookadd.component.css']
 })
-export class AuthoraddComponent implements OnInit {
+export class BookaddComponent implements OnInit {
   modalRef?: BsModalRef;
   reader = new FileReader();
   url: any = undefined;
@@ -22,11 +22,11 @@ export class AuthoraddComponent implements OnInit {
   }
 
   // form control 
-  addAuthorForm: FormGroup = this.fb.group({
+  addBookForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
-    country: ['', Validators.required],
-    language: ['', Validators.required],
-    work: ['', Validators.required],
+    author: ['', Validators.required],
+    genre: ['', Validators.required],
+    about: ['', Validators.required],
   })
 
   onSubmit() {
@@ -44,7 +44,7 @@ export class AuthoraddComponent implements OnInit {
     if (imgUrl == '') {
       imgUrl = this.url;
     }
-    var postBody = this.addAuthorForm.value
+    var postBody = this.addBookForm.value
     postBody.imgUrl = imgUrl;
     console.log(postBody);
   }
