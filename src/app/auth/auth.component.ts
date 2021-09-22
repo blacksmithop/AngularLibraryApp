@@ -59,7 +59,9 @@ export class AuthComponent implements OnInit {
     this.login.newUser(postBody)
       .subscribe(
         response => {
-          this.router.navigate(['auth'])
+          this.SignUpForm.reset();
+          alert("Created new user")
+          //this.router.navigate(['auth'])
         })
   }
 }
