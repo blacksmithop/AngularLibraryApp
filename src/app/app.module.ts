@@ -18,7 +18,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-import { ImageUploadService } from './image-upload.service';
 import { LoginService } from './login.service';
 import { AdditemService } from './additem.service';
 
@@ -63,7 +62,7 @@ import { DeleteauthorComponent } from './deleteauthor/deleteauthor.component';
     CarouselModule.forRoot(),
     CollapseModule.forRoot(),
   ],
-  providers: [ImageUploadService, LoginService, AdditemService, {
+  providers: [LoginService, AdditemService, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

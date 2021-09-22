@@ -10,7 +10,8 @@ export class LoginService {
   constructor(private http: HttpClient,
     private router: Router) { }
 
-  address: string = 'http://localhost:8080';
+  //address: string = 'http://localhost:8080';
+  address: string = '/api';
 
   loginUser(user: any) {
     return this.http.post<any>(`${this.address}/login`, user)

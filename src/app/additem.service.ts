@@ -8,7 +8,8 @@ export class AdditemService {
 
   constructor(private http: HttpClient) { }
 
-  address: string = 'http://localhost:8080';
+  //address: string = 'http://localhost:8080';
+  address: string = '/api';
 
 
   getBookCollections() {
