@@ -6,7 +6,7 @@
 
   .footerfix{height:4rem;}
 footer{
-  position: absolute;
+  position:sticky;
   right: 0;
   bottom: 0;
   left: 0;

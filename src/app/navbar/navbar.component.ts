@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  loggedIn: boolean;
 
-  constructor() { }
+  constructor(private login: LoginService,) {
+    this.loggedIn = this.login.loggedIn();
+  }
+
 
   ngOnInit(): void {
+  }
+
+  endSession() {
+    console.log("Logging out")
+    this.login.logout()
   }
 
 }

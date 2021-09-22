@@ -1,52 +1,75 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AdditemService } from '../additem.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-authoradd',
-  templateUrl: './authoradd.component.html',
-  styleUrls: ['./authoradd.component.css']
+  selector: 'app-editbook',
+  templateUrl: './editbook.component.html',
+  styleUrls: ['./editbook.component.css']
 })
-export class AuthoraddComponent implements OnInit {
+export class EditbookComponent implements OnInit {
   modalRef?: BsModalRef;
   reader = new FileReader();
   url: any = undefined;
   file: any;
-  filename: string = "Preview"
+  id: string;
+  filename: string = "Preview";
   canUse = localStorage.getItem("role") == 'admin';
 
+
   constructor(private modalService: BsModalService,
-    private book: AdditemService,
     private fb: FormBuilder,
-    private router: Router) { }
+    private route: ActivatedRoute,
+    private item: AdditemService,
+    private router: Router) {
+    this.id = this.route.snapshot.paramMap.get('id')!;
+  }
+
+  addBookForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    author: ['', Validators.required],
+    genre: ['', Validators.required],
+    about: ['', Validators.required],
+  })
+
   ngOnInit(): void {
     if (!this.canUse) {
-      this.router.navigate(['author'])
+      this.router.navigate(['book'])
     }
+    this.item.getBook(this.id).subscribe((data: any) => {
+
+      delete data['__v'];
+      delete data['_id'];
+      this.url = data['imgUrl'];
+      delete data['imgUrl'];
+      console.log(data);
+
+      for (let key in data) {
+        this.addBookForm.get(key)!.setValue(data[key]);
+      }
+    })
   }
 
   // form control 
-  addAuthorForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    country: ['', Validators.required],
-    language: ['', Validators.required],
-    work: ['', Validators.required],
-  })
 
   onSubmit() {
     var imgUrl: string = this.url;
 
-    var postBody = this.addAuthorForm.value
+    var postBody = this.addBookForm.value
     postBody.imgUrl = imgUrl;
+
     console.log(postBody);
 
-    this.book.newAuthor(postBody).subscribe(
+    this.item.updateBook(postBody, this.id).subscribe(
       response => {
-        this.router.navigate(['author'])
+        this.router.navigate(['book'])
       })
   }
+
+
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

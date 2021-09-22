@@ -1,0 +1,80 @@
+<div class="container" id="login">
+    <div class="container-fluid">
+        <form [formGroup]="LoginForm" (ngSubmit)="checkCredentials()">
+            <p class="display-5 text-light">Login</p>
+            <div class="row">
+                <div class="col-auto">
+                    <label for="staticUsername" class="visually-hidden">Email</label>
+                    <input type="text" class="form-control" formControlName="username" id="staticUsername"
+                        placeholder="Username">
+                    <small class="mt-2 fs-6 text-center text-light"
+                        *ngIf="LoginForm.get('username')!.hasError('required')">
+                        Username is required <i class="fas fa-exclamation-circle"></i>
+                    </small>
+                </div>
+                <div class="col-auto">
+                    <label for="inputPassword" class="visually-hidden">Password</label>
+                    <input type="password" class="form-control" formControlName="password" id="inputPassword"
+                        placeholder="Password">
+                    <small class="mt-2 fs-6 text-center text-light"
+                        *ngIf="LoginForm.get('password')!.hasError('required')">
+                        Password is required <i class="fas fa-exclamation-circle"></i>
+                    </small>
+                </div>
+            </div>
+            <button type="submit" [disabled]="!LoginForm.valid" class="btn btn-success mt-3">Login</button>
+        </form>
+    </div>
+
+    <div class="mx-auto mt-3 mb-3 pl-3">
+        <h3><span class="badge rounded-pill bg-dark">OR</span></h3>
+    </div>
+
+    <div class="container-fluid" id="signup">
+        <form [formGroup]="SignUpForm" (ngSubmit)=" createUser()">
+            <p class="display-5 text-light">Signup</p>
+            <div class="row">
+                <div class="col-auto">
+                    <label for="staticName" class="visually-hidden">Name</label>
+                    <input type="text" class="form-control" id="staticName" formControlName="name" placeholder="Name">
+                    <small class="mt-2 fs-6 text-center text-light"
+                        *ngIf="SignUpForm.get('name')!.hasError('required')">
+                        Name is required <i class="fas fa-exclamation-circle"></i>
+                    </small>
+                </div>
+                <div class="col-auto">
+                    <label for="staticUsername" class="visually-hidden">Username</label>
+                    <input type="text" class="form-control" formControlName="username" id="staticUsername"
+                        placeholder="Username">
+                    <small class="mt-2 fs-6 text-center text-light"
+                        *ngIf="SignUpForm.get('username')!.hasError('required')">
+                        Username is required <i class="fas fa-exclamation-circle"></i>
+                    </small>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-auto">
+                    <label for="inputPassword1" class="visually-hidden">Password</label>
+                    <input type="password" class="form-control" id="inputPassword1" formControlName="password"
+                        placeholder="Password">
+                    <small class="mt-2 fs-6 text-center text-light"
+                        *ngIf="SignUpForm.get('password')!.hasError('required')">
+                        Password is required <i class="fas fa-exclamation-circle"></i>
+                    </small>
+                </div>
+                <div class="col-auto">
+                    <label for="inputPassword2" class="visually-hidden">Password</label>
+                    <input type="password" class="form-control" formControlName="password2" id="inputPassword2"
+                        placeholder="Repeat password">
+                    <small class="mt-2 fs-6 text-center text-light"
+                        *ngIf="SignUpForm.get('password2')!.hasError('required')">
+                        Password is required <i class="fas fa-exclamation-circle"></i>
+                    </small>
+                </div>
+            </div>
+            <button type="submit"
+                [disabled]="!SignUpForm.valid && (SignUpForm.get('password')!.value == SignUpForm.get('password2')!.value)"
+                class="btn btn-success mt-3">Signup</button>
+        </form>
+    </div>
+</div>

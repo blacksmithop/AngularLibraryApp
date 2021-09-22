@@ -1,0 +1,42 @@
+<div class="container">
+    <h1 class="text-center text-light display-5 mb-3">Books <button class="btn fas fa-plus text-success bg-dark fs-3"
+            (click)="addBook()"></button>
+    </h1>
+    <div class="container-fluid">
+        <carousel [isAnimated]="true">
+            <slide *ngFor='let item of data'>
+                <div class="book-container book container-fluid  mb-3">
+                    <div class="wrapper">
+                        <img class="" src={{item.imgUrl}}>
+                        <div class="data">
+                            <div class="content">
+                                <h1 class="title">{{item.name}}</h1>
+                                <p class="text">{{item.about}}</p>
+                                <label for={{item._id}} class="menu-button"><span></span></label>
+                            </div>
+                            <input type="checkbox" id={{item._id}} />
+                            <ul class="menu-content bg-dark">
+                                <li>
+                                    <a class="fas fa-edit text-success" href="{{'editbook/' + item._id}}"></a>
+                                </li>
+                                <li></li>
+                                <li>
+                                    <a class="fas fa-trash text-danger" href="{{'deletebook/' + item._id}}"></a>
+                                </li>
+                            </ul>
+                            <ol class="list-group">
+                                <li class="list-group-item"><span
+                                        class="badge bg-secondary mr-2">Author</span>{{item.author}}
+                                </li>
+                                <li class="list-group-item"><span
+                                        class="badge bg-secondary mr-2">Genre</span>{{item.genre}}
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+            </slide>
+        </carousel>
+    </div>
+</div>

@@ -1,30 +1,48 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AdditemService } from '../additem.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-authoradd',
-  templateUrl: './authoradd.component.html',
-  styleUrls: ['./authoradd.component.css']
+  selector: 'app-editauthor',
+  templateUrl: './editauthor.component.html',
+  styleUrls: ['./editauthor.component.css']
 })
-export class AuthoraddComponent implements OnInit {
+export class EditauthorComponent implements OnInit {
   modalRef?: BsModalRef;
   reader = new FileReader();
   url: any = undefined;
   file: any;
+  id: string;
   filename: string = "Preview"
   canUse = localStorage.getItem("role") == 'admin';
 
   constructor(private modalService: BsModalService,
-    private book: AdditemService,
     private fb: FormBuilder,
-    private router: Router) { }
+    private route: ActivatedRoute,
+    private item: AdditemService,
+    private router: Router) {
+    this.id = this.route.snapshot.paramMap.get('id')!;
+  }
+
   ngOnInit(): void {
     if (!this.canUse) {
       this.router.navigate(['author'])
     }
+
+    this.item.getAuthor(this.id).subscribe((data: any) => {
+      delete data['__v'];
+      delete data['_id'];
+      this.url = data['imgUrl'];
+      delete data['imgUrl'];
+      console.log(data);
+
+      for (let key in data) {
+        this.addAuthorForm.get(key)!.setValue(data[key]);
+      }
+    })
   }
 
   // form control 
@@ -40,13 +58,17 @@ export class AuthoraddComponent implements OnInit {
 
     var postBody = this.addAuthorForm.value
     postBody.imgUrl = imgUrl;
+
     console.log(postBody);
 
-    this.book.newAuthor(postBody).subscribe(
+    this.item.updateAuthor(postBody, this.id).subscribe(
       response => {
         this.router.navigate(['author'])
       })
   }
+
+
+
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
